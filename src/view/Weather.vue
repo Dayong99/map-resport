@@ -21,11 +21,10 @@
       };
     },
     created() {
-      // this.get();
-
+      this.get();
     },
     mounted() {
-      this.get()
+      // this.get()
     },
     methods: {
       async get() {
