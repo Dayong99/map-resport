@@ -2,11 +2,12 @@
   <div>
     <div id="cesiumContainer"></div>
     <canvas id="canvas" width="775" height="295"></canvas>
-    <div>{{parmas}}</div>
   </div>
 </template>
 
 <script>
+  import * as Cesium from 'cesium';
+
   export default {
     data() {
       return {
@@ -48,15 +49,10 @@
         this.yMax = Math.max.apply(Math, pyArr)
         this.yMin = Math.min.apply(Math, pyArr)
 
-        console.log(this.xMin);
-        console.log(this.xMax);
-        console.log(this.yMin);
-        console.log(this.yMax);
-
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         ctx.fillStyle = 'red';
-        ctx.font = "12px serif";
+        ctx.font = "normal normal 500 12px serif";
 
         // 放大倍数
         const scaleX = canvas.width / (this.xMax - this.xMin) * 0.7
@@ -92,6 +88,8 @@
           ctx.fillText(Object.values(this.parmas[i])[6], (pxArr[i] - this.xMin) * scaleX + canvas.width*0.15 + fifthParmsX - 20,
             (this.yMax - pyArr[i]) * scaleY + canvas.height*0.15 + fifthParmsY + 2)
         }
+
+        // 将canvas贴在cesium上
         Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI3YWQ2NGZkNC0yYjYzLTRiNzEtOWJjMi01Y2I5NGJlMzEyZGQiLCJpZCI6Mjk4NjAsInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1OTI4MTI1NTR9.-zUaIBAgYOlJ-36v2q9uy2BK4xPendbHEbX8JjKav-s';
         let viewer = new Cesium.Viewer('cesiumContainer',{
           imageryProvider: Cesium.createWorldImagery({
@@ -100,8 +98,9 @@
           baseLayerPicker: false,
         })
 
+        // 获取canvas的url
         let canvasUrl = canvas.toDataURL()
-        console.log(canvasUrl);
+
         let layers = viewer.scene.imageryLayers;
         let blackMarble = layers.addImageryProvider(
           new Cesium.IonImageryProvider({ assetId: 3812 })
