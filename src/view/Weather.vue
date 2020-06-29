@@ -6,8 +6,7 @@
 </template>
 
 <script>
-  import * as Cesium from 'cesium';
-
+  // import * as Cesium from 'cesium';
   export default {
     data() {
       return {
