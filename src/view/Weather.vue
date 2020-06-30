@@ -19,13 +19,14 @@
                 yMin: Number,
                 yMax: Number,
                 canvasUrl: '',
+                scaleLevelL: '',
             };
         },
         created() {
             this.get();
         },
         mounted() {
-            // this.get()
+
         },
         methods: {
             async get() {
@@ -50,7 +51,7 @@
 
                 const canvas = document.getElementById('canvas');
                 const ctx = canvas.getContext('2d');
-                ctx.fillStyle = 'red';
+
                 ctx.font = 'normal normal 500 12px serif';
 
                 // 放大倍数
@@ -74,18 +75,43 @@
                 // 向canvas映射地点、参数
                 for (let i = 0; i < this.parmas.length; i++) {
                     // 地点
+                    ctx.fillStyle = '#f94b52';
                     ctx.fillRect((pxArr[i] - this.xMin) * scaleX + canvas.width * 0.15, (this.yMax - pyArr[i]) * scaleY + canvas.height * 0.15, 4, 4);
-                    // 参数
-                    ctx.fillText("" + Object.values(this.parmas[i])[2], (pxArr[i] - this.xMin) * scaleX + canvas.width * 0.15 + firstParmsX - 15,
-                        (this.yMax - pyArr[i]) * scaleY + canvas.height * 0.15 + firstParmsY + 8);
-                    ctx.fillText("" + Object.values(this.parmas[i])[3], (pxArr[i] - this.xMin) * scaleX + canvas.width * 0.15 + secondParmsX + 3,
-                        (this.yMax - pyArr[i]) * scaleY + canvas.height * 0.15 + secondParmsY + 2);
-                    ctx.fillText("" + Object.values(this.parmas[i])[4], (pxArr[i] - this.xMin) * scaleX + canvas.width * 0.15 + thirdParmsX,
-                        (this.yMax - pyArr[i]) * scaleY + canvas.height * 0.15 + thirdParmsY);
-                    ctx.fillText("" + Object.values(this.parmas[i])[5], (pxArr[i] - this.xMin) * scaleX + canvas.width * 0.15 + fourthParmsX - 4,
-                        (this.yMax - pyArr[i]) * scaleY + canvas.height * 0.15 + fourthParmsY);
-                    ctx.fillText("" + Object.values(this.parmas[i])[6], (pxArr[i] - this.xMin) * scaleX + canvas.width * 0.15 + fifthParmsX - 20,
-                        (this.yMax - pyArr[i]) * scaleY + canvas.height * 0.15 + fifthParmsY + 2);
+
+                    // 参数1
+                    for (let i = 0; i < this.parmas.length; i++) {
+                        ctx.fillStyle = '#a200ec';
+                        ctx.fillText("" + Object.values(this.parmas[i])[2], (pxArr[i] - this.xMin) * scaleX + canvas.width * 0.15 + firstParmsX - 15,
+                            (this.yMax - pyArr[i]) * scaleY + canvas.height * 0.15 + firstParmsY + 8);
+                    }
+
+                    // 参数2
+                    for (let i = 0; i < this.parmas.length; i++) {
+                        ctx.fillStyle = '#289434';
+                        ctx.fillText("" + Object.values(this.parmas[i])[3], (pxArr[i] - this.xMin) * scaleX + canvas.width * 0.15 + secondParmsX + 3,
+                            (this.yMax - pyArr[i]) * scaleY + canvas.height * 0.15 + secondParmsY + 2);
+                    }
+
+                    // 参数3
+                    for (let i = 0; i < this.parmas.length; i++) {
+                        ctx.fillStyle = '#3a24ed';
+                        ctx.fillText("" + Object.values(this.parmas[i])[4], (pxArr[i] - this.xMin) * scaleX + canvas.width * 0.15 + thirdParmsX,
+                            (this.yMax - pyArr[i]) * scaleY + canvas.height * 0.15 + thirdParmsY);
+                    }
+
+                    // 参数4
+                    for (let i = 0; i < this.parmas.length; i++) {
+                        ctx.fillStyle = "#e01549"
+                        ctx.fillText("" + Object.values(this.parmas[i])[5], (pxArr[i] - this.xMin) * scaleX + canvas.width * 0.15 + fourthParmsX - 4,
+                            (this.yMax - pyArr[i]) * scaleY + canvas.height * 0.15 + fourthParmsY);
+                    }
+
+                    // 参数5
+                    for (let i = 0; i < this.parmas.length; i++) {
+                        ctx.fillStyle = "#1b5cf7"
+                        ctx.fillText("" + Object.values(this.parmas[i])[6], (pxArr[i] - this.xMin) * scaleX + canvas.width * 0.15 + fifthParmsX - 20,
+                            (this.yMax - pyArr[i]) * scaleY + canvas.height * 0.15 + fifthParmsY + 2);
+                    }
                 }
 
                 // 获取cesium
@@ -96,6 +122,19 @@
                     }),
                     baseLayerPicker: false,
                 });
+
+                // 获取camera的高度
+                // 根据camera高度近似计算当前层级
+                // 监听地图移动完成事件
+                viewer.camera.moveStart.addEventListener(function () {
+                    let height = Math.ceil(viewer.camera.positionCartographic.height)
+                    let A = 40487.57
+                    let B = 0.00007096758
+                    let C = 91610.74
+                    let D = -40467.74
+                    window.scaleLevelL = Math.round(D + (A - D) / (1 + Math.pow(height/ C, B)))
+                    console.log(scaleLevelL)
+                })
 
                 // 获取canvas的url
                 const canvasUrl = canvas.toDataURL();
@@ -113,7 +152,7 @@
                 layers.addImageryProvider(
                     new Cesium.SingleTileImageryProvider({
                         url: canvasUrl,
-                        rectangle: Cesium.Rectangle.fromDegrees(110.056, 30.525, 132.077, 33.43),
+                        rectangle: Cesium.Rectangle.fromDegrees(115.545, 28.449, 126.587, 32.601),
                     }),
                 );
             },
@@ -123,7 +162,7 @@
 
 <style scoped>
     #canvas {
-        border: 1px solid darkolivegreen;
+        border: 1px solid #0c6f58;
     }
 
 </style>
