@@ -51,6 +51,10 @@
 
                 const canvas = document.getElementById('canvas');
                 const ctx = canvas.getContext('2d');
+                canvas.width = 775
+                canvas.height = 295
+
+                canvas.style.width = this.scaleLevelL * 775
 
                 ctx.font = 'normal normal 500 12px serif';
 
