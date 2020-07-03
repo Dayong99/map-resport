@@ -54,28 +54,33 @@
                     this.getLayer()
                 } else if (newVal === 4) {
                     this.removeLayer()
-                    this.getWidth = 775 / 1.1
-                    this.getHeight = 295 / 1.1
+                    this.getWidth = 775 / 1.6
+                    this.getHeight = 295 / 1.6
                     this.getLayer()
                 } else if (newVal === 6) {
                     this.removeLayer()
-                    this.getWidth = 775 / 0.9
-                    this.getHeight = 295 / 0.9
+                    this.getWidth = 775 / 1.2
+                    this.getHeight = 295 / 1.2
+                    this.getLayer()
+                } else if (newVal === 7) {
+                    this.removeLayer()
+                    this.getWidth = 775 / 0.8
+                    this.getHeight = 295 / 0.8
                     this.getLayer()
                 } else if (newVal === 8) {
                     this.removeLayer()
-                    this.getWidth = 775 / 0.7
-                    this.getHeight = 295 / 0.7
+                    this.getWidth = 775 / 0.5
+                    this.getHeight = 295 / 0.5
                     this.getLayer()
                 } else if (newVal === 9) {
                     this.removeLayer()
-                    this.getWidth = 775 / 0.4
-                    this.getHeight = 295 / 0.4
+                    this.getWidth = 775 / 0.25
+                    this.getHeight = 295 / 0.25
                     this.getLayer()
                 } else if (newVal === 10) {
                     this.removeLayer()
-                    this.getWidth = 775 / 0.3
-                    this.getHeight = 295 / 0.3
+                    this.getWidth = 775 / 0.15
+                    this.getHeight = 295 / 0.15
                     this.getLayer()
                 } else if (newVal === 11) {
                     this.removeLayer()
@@ -84,13 +89,13 @@
                     this.getLayer()
                 } else if (newVal === 12) {
                     this.removeLayer()
-                    this.getWidth = 775 / 0.1
-                    this.getHeight = 295 / 0.1
+                    this.getWidth = 775 / 0.09
+                    this.getHeight = 295 / 0.09
                     this.getLayer()
                 } else if (newVal === 13) {
                     this.removeLayer()
-                    this.getWidth = 775 / 0.1
-                    this.getHeight = 295 / 0.1
+                    this.getWidth = 775 / 0.08
+                    this.getHeight = 295 / 0.08
                     this.getLayer()
                 }
             }
