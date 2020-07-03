@@ -1,12 +1,14 @@
 <template>
     <div>
         <div id="cesiumContainer"></div>
-        <canvas id="canvas" :width = "getWidth" :height = "getHeight"></canvas>
+        <canvas id="canvas"></canvas>
+        <!--        <canvas id="canvas" :width="getWidth" :height="getHeight"></canvas>-->
     </div>
 </template>
 
 <script>
     import * as Cesium from "cesium";
+
     export default {
         data() {
             return {
@@ -20,8 +22,8 @@
                 canvasUrl: '',
                 scaleLevelL: '',
                 fontSize: 12,
-                // getWidth: 775,
-                // getHeight: 295,
+                getWidth: 775,
+                getHeight: 295,
                 scaleX: '',
                 scaleY: '',
                 radius: 17,
@@ -35,59 +37,64 @@
                 fourthParmsY: Number,
                 fifthParmsX: Number,
                 fifthParmsY: Number,
-                img:''
+                img: '',
+
+                arr: []
             };
         },
         created() {
             this.get();
         },
-        computed: {
-            getWidth: function() {
-                return 775 * this.scaleLevelL * 1.8
-            },
-            getHeight: function() {
-                return 295 * this.scaleLevelL * 1.8
+        watch: {
+            scaleLevelL(newVal) {
+                console.log(this.scaleLevelL)
+                if (newVal === 2) {
+                    this.getWidth = 775 / 1.7
+                    this.getHeight = 295 / 1.7
+                    this.getLayer()
+                } else if (newVal === 4) {
+                    this.removeLayer()
+                    this.getWidth = 775 / 1.1
+                    this.getHeight = 295 / 1.1
+                    this.getLayer()
+                } else if (newVal === 6) {
+                    this.removeLayer()
+                    this.getWidth = 775 / 0.9
+                    this.getHeight = 295 / 0.9
+                    this.getLayer()
+                } else if (newVal === 8) {
+                    this.removeLayer()
+                    this.getWidth = 775 / 0.7
+                    this.getHeight = 295 / 0.7
+                    this.getLayer()
+                } else if (newVal === 9) {
+                    this.removeLayer()
+                    this.getWidth = 775 / 0.4
+                    this.getHeight = 295 / 0.4
+                    this.getLayer()
+                } else if (newVal === 10) {
+                    this.removeLayer()
+                    this.getWidth = 775 / 0.3
+                    this.getHeight = 295 / 0.3
+                    this.getLayer()
+                } else if (newVal === 11) {
+                    this.removeLayer()
+                    this.getWidth = 775 / 0.1
+                    this.getHeight = 295 / 0.1
+                    this.getLayer()
+                } else if (newVal === 12) {
+                    this.removeLayer()
+                    this.getWidth = 775 / 0.1
+                    this.getHeight = 295 / 0.1
+                    this.getLayer()
+                } else if (newVal === 13) {
+                    this.removeLayer()
+                    this.getWidth = 775 / 0.1
+                    this.getHeight = 295 / 0.1
+                    this.getLayer()
+                }
             }
         },
-        // watch: {
-        //     scaleLevelL(newVal) {
-        //         console.log(this.scaleLevelL);
-        //         if(newVal === 2) {
-        //             this.getWidth = 775 * 2
-        //             this.getHeight = 295 * 2
-        //         }else if(newVal === 3) {
-        //             this.getWidth = 775 * 4
-        //             this.getHeight = 295 * 4
-        //         }else if(newVal === 4) {
-        //             this.getWidth = 775 * 6
-        //             this.getHeight = 295 * 6
-        //         }else if(newVal === 5) {
-        //             this.getWidth = 775 * 8
-        //             this.getHeight = 295 * 8
-        //         }else if(newVal === 6) {
-        //             this.getWidth = 775 * 10
-        //             this.getHeight = 295 * 10
-        //         }else if(newVal === 7) {
-        //             this.getWidth = 775 * 12
-        //             this.getHeight = 295 * 12
-        //         }else if(newVal === 8) {
-        //             this.getWidth = 775 * 14
-        //             this.getHeight = 295 * 14
-        //         }else if(newVal === 9) {
-        //             this.getWidth = 775 * 16
-        //             this.getHeight = 295 * 16
-        //         }else if(newVal === 10) {
-        //             this.getWidth = 775 * 18
-        //             this.getHeight = 295 * 18
-        //         }else if(newVal === 11) {
-        //             this.getWidth = 775 * 20
-        //             this.getHeight = 295 * 20
-        //         }else if(newVal === 12) {
-        //             this.getWidth = 775 * 22
-        //             this.getHeight = 295 * 22
-        //         }
-        //     }
-        // },
         methods: {
             async get() {
                 const {data: res} = await this.axios('http://192.168.1.2:8301/'
@@ -95,37 +102,49 @@
                     + '1&encrypt=1&time=2020-01-02%2014%3A50%3A00');
                 this.parmas = res.data;
 
-                // 从getCanvas()中获取canvas的url
-                let canvasUrl = this.getCanvas()
-                this.img = canvasUrl.toDataURL();
-
-                const cesiumObj = this.getCesium()
-                let layers = cesiumObj.scene.imageryLayers;
-                const blackMarble = layers.addImageryProvider(
-                    new Cesium.IonImageryProvider({assetId: 3812}),
-                );
-                blackMarble.alpha = 0.5;
-                blackMarble.brightness = 2.0;
-                layers.addImageryProvider(
-                    new Cesium.SingleTileImageryProvider({
-                        url: this.img,
-                        rectangle: Cesium.Rectangle.fromDegrees(115.545, 28.449, 126.587, 32.601),
-                    }),
-                );
+                this.getCesium()
 
                 // 获取camera的高度
                 // 根据camera高度近似计算当前层级
                 // 监听地图移动完成事件
-                cesiumObj.camera.moveStart.addEventListener(() => {
-                    let height = Math.ceil(cesiumObj.camera.positionCartographic.height)
+                window.earth.camera.moveStart.addEventListener(() => {
+                    let height = Math.ceil(window.earth.camera.positionCartographic.height)
                     let A = 40487.57
                     let B = 0.00007096758
                     let C = 91610.74
                     let D = -40467.74
-                    this.scaleLevelL = Math.round(D + (A - D) / (1 + Math.pow(height/C, B)))
+                    this.scaleLevelL = Math.round(D + (A - D) / (1 + Math.pow(height / C, B)))
                     // console.log(this.scaleLevelL)
-                })
+                },)
             },
+
+            // 获得图层，将canvas画到cesium上
+            getLayer() {
+                // 从getCanvas()中获取canvas的url
+                // let canvasUrl = this.getCanvas()
+                // this.img = canvasUrl.toDataURL()
+
+                const layerLoad = window.earth.imageryLayers.addImageryProvider(
+                    new Cesium.SingleTileImageryProvider({
+                        url: this.getCanvas().toDataURL(),
+                        rectangle: Cesium.Rectangle.fromDegrees(115.545, 28.449, 126.587, 32.601),
+                    }),
+                );
+                // window.earth.imageryLayers.remove(layerLoad)
+                // return layerLoad
+                this.arr.push(layerLoad)
+            },
+
+            // 清除图层
+            removeLayer() {
+                // let oneLayer = this.getLayer()
+                // window.earth.imageryLayers.remove(oneLayer)
+                this.arr.forEach(item => {
+                    window.earth.imageryLayers.remove(item)
+                })
+                this.arr = []
+            },
+
             // 获得canvas
             getCanvas() {
                 const pyArr = [];
@@ -144,8 +163,8 @@
                 const ctx = canvas.getContext('2d');
                 canvas.style.width = 775 + 'px'
                 canvas.style.width = 295 + 'px'
-                // canvas.width = getWidth
-                // canvas.height = getHeight
+                canvas.width = this.getWidth
+                canvas.height = this.getHeight
                 ctx.font = 'normal normal 500 12px serif';
                 // 放大倍数
                 this.scaleX = canvas.width / (this.xMax - this.xMin) * 0.7;
@@ -197,18 +216,55 @@
                             (this.yMax - pyArr[i]) * this.scaleY + canvas.height * 0.15 + this.fifthParmsY + 2);
                     }
                 }
+
+                // canvas.toBlob(function (blob) {
+                //     var a = document.createElement('a')
+                //     var body = document.getElementsByTagName('body')
+                //     document.body.appendChild(a)
+                //     a.download = 'img' + '.jpg'
+                //     a.href = window.URL.createObjectURL(blob)
+                //
+                //     a.click()
+                //     document.body.removeChild('a')
+                // })
                 return canvas
             },
+
+            // 清除canvas
+            removeCanvas() {
+                // document.getElementById("canvas").clearCanvas()
+
+                // let c = document.getElementById("canvas");
+                // let cxt = c.getContext("2d");
+                // c.height = c.height;
+
+                // this.getCanvas().setAttribute('height', '2')
+
+                // this.getCanvas().getContext("2d").clear()
+
+                // this.getCanvas().width = this.getCanvas().width
+
+                // let oneCanvas = document.getElementById("canvas");
+                // let ctx = oneCanvas.getContext("2d");
+                // // oneCanvas = ''
+                // // ctx = ''
+                // oneCanvas.style.width = 0 + 'px'
+                // oneCanvas.style.width = 0 + 'px'
+                // ctx.font = '';
+                //
+                //     let oneCanvas = this.getCanvas()
+                //     oneCanvas = ''
+            },
+
             // 获取cesium
             getCesium() {
                 Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI3YWQ2NGZkNC0yYjYzLTRiNzEtOWJjMi01Y2I5NGJlMzEyZGQiLCJpZCI6Mjk4NjAsInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1OTI4MTI1NTR9.-zUaIBAgYOlJ-36v2q9uy2BK4xPendbHEbX8JjKav-s';
-                const viewer = new Cesium.Viewer('cesiumContainer', {
+                window.earth = new Cesium.Viewer('cesiumContainer', {
                     imageryProvider: Cesium.createWorldImagery({
                         style: Cesium.IonWorldImageryStyle.AERIAL_WITH_LABELS,
                     }),
                     baseLayerPicker: false,
                 });
-                return viewer
             }
         },
     };
