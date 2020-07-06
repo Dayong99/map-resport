@@ -52,15 +52,15 @@
                     this.getWidth = 0
                     this.getHeight = 0
                     this.getLayer()
-                }else if(newVal === 2) {
+                } else if (newVal === 2) {
                     this.removeLayer()
                     this.getWidth = 0
                     this.getHeight = 0
                     this.getLayer()
                 } else if (newVal === 3) {
                     this.removeLayer()
-                    this.getWidth = 775 / 0.62
-                    this.getHeight = 295 / 0.62
+                    this.getWidth = 775 / 0.55
+                    this.getHeight = 295 / 0.55
                     this.getLayer()
                 } else if (newVal === 4) {
                     this.removeLayer()
@@ -74,8 +74,8 @@
                     this.getLayer()
                 } else if (newVal === 6) {
                     this.removeLayer()
-                    this.getWidth = 775 / 0.08
-                    this.getHeight = 295 / 0.08
+                    this.getWidth = 775 / 0.1
+                    this.getHeight = 295 / 0.1
                     this.getLayer()
                 } else if (newVal === 7) {
                     this.removeLayer()
@@ -84,22 +84,15 @@
                     this.getLayer()
                 } else if (newVal === 8) {
                     this.removeLayer()
-                    this.getWidth = 775 / 0.0475
-                    this.getHeight = 295 / 0.0475
+                    this.getWidth = 775 / 0.0477
+                    this.getHeight = 295 / 0.0477
                     this.getLayer()
-                }
-                else if (newVal === 9) {
+                } else if (newVal === 9) {
                     this.removeLayer()
                     this.getWidth = 0
                     this.getHeight = 0
                     this.getLayer()
                 }
-                // else if (newVal === 10) {
-                //     this.removeLayer()
-                //     this.getWidth = 775 / 0.048
-                //     this.getHeight = 295 / 0.048
-                //     this.getLayer()
-                // }
             }
         },
         methods: {
@@ -136,7 +129,8 @@
                     this.scaleLevelL = Math.round(D + (A - D) / (1 + Math.pow(height / C, B)))
                     // console.log(this.scaleLevelL)
                 },)
-            },
+            }
+            ,
 
             // 获得canvas
             getCanvas() {
@@ -233,7 +227,8 @@
                     east: east,
                     north: north,
                 }
-            },
+            }
+            ,
 
             // 清除图层
             removeLayer() {
@@ -243,7 +238,8 @@
                     window.earth.imageryLayers.remove(item)
                 })
                 this.arr = []
-            },
+            }
+            ,
 
             // 获得图层，将canvas画到cesium上
             getLayer() {
@@ -254,19 +250,36 @@
                 let east = this.getCanvas().east
                 let north = this.getCanvas().north
 
-                // 提高cesium清晰度1：改变地图灰度系数
-                let layer0 = window.earth.scene.imageryLayers.get(0);
-                layer0.gamma = 0.8;
+                // // 解决Cesium画线不光滑，模糊不清，锯齿状:1.改变地图灰度系数
+                // let layer0 = window.earth.scene.imageryLayers.get(0);
+                // layer0.gamma = 0.8;
 
-                // 提高cesium清晰度2：改善实体的文字和图片清晰度
-                window.earth.scene.fxaa = false;
+                // 解决Cesium画线不光滑，模糊不清，锯齿状:2.关闭抗锯齿
+                window.earth.scene.fxaa = false
+                window.earth.scene.postProcessStages.fxaa.enabled = false;
+
+                // 解决Cesium画线不光滑，模糊不清，锯齿状:3.自动调整分辨率
+                // let supportsImageRenderingPixelated = window.earth.cesiumWidget._supportsImageRenderingPixelated;
+                // if (supportsImageRenderingPixelated) {
+                //     let vtxf_dpr = window.devicePixelRatio;
+                //     while (vtxf_dpr >= 2.0) {
+                //         vtxf_dpr /= 2.0;
+                //     }
+                //     window.earth.resolutionScale = vtxf_dpr;
+                // }
+
+                // 解决cesium锯齿和页面模糊问题: 使viewer.resolutionScale的值等于window.devicePixelRatio值
+                if(Cesium.FeatureDetection.supportsImageRenderingPixelated()){//判断是否支持图像渲染像素化处理
+                    window.earth.resolutionScale = window.devicePixelRatio;
+                }
+
 
                 let layers = window.earth.scene.imageryLayers
-                let blackMarble = layers.addImageryProvider(
-                    new Cesium.IonImageryProvider({assetId: 3812})
-                )
-                blackMarble.alpha = 0
-                blackMarble.brightness = 0
+                // let blackMarble = layers.addImageryProvider(
+                //     new Cesium.IonImageryProvider({assetId: 3812})
+                // )
+                // blackMarble.alpha = 0
+                // blackMarble.brightness = 0
 
                 const layerLoad = layers.addImageryProvider(
                     new Cesium.SingleTileImageryProvider({
@@ -277,7 +290,8 @@
                 // window.earth.imageryLayers.remove(layerLoad)
                 // return layerLoad
                 this.arr.push(layerLoad)
-            },
+            }
+            ,
 
             // 清除canvas
             removeCanvas() {
@@ -305,7 +319,7 @@
                 //     oneCanvas = ''
             },
         },
-    };
+    }
 </script>
 
 <style scoped>
