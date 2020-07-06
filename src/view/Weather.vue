@@ -25,7 +25,7 @@
                 getHeight: 0,
                 scaleX: '',
                 scaleY: '',
-                radius: 12,
+                radius: 7,
                 firstParmsX: Number,
                 firstParmsY: Number,
                 secondParmsX: Number,
@@ -106,53 +106,53 @@
                     this.getLayer()
                 } else if (newVal === 3) {
                     this.removeLayer()
-                    this.getWidth = 7.8 * 31.2
-                    this.getHeight = 3.0 * 31.2
+                    this.getWidth = 7.8 * 30
+                    this.getHeight = 3.0 * 30
                     this.getLayer()
                 } else if (newVal === 4) {
                     this.removeLayer()
-                    this.getWidth = 78*3
-                    this.getHeight = 30*3
+                    this.getWidth = 78*5
+                    this.getHeight = 30*5
                     this.getLayer()
                 } else if (newVal === 5) {
                     this.removeLayer()
-                    this.getWidth = 78*4
-                    this.getHeight = 30*4
+                    this.getWidth = 78*7
+                    this.getHeight = 30*7
                     this.getLayer()
                 } else if (newVal === 6) {
                     this.removeLayer()
-                    this.getWidth = 78*70
-                    this.getHeight = 30*70
+                    this.getWidth = 78*11
+                    this.getHeight = 30*11
                     this.getLayer()
                 } else if (newVal === 7) {
+                    this.removeLayer()
+                    this.getWidth = 78*25
+                    this.getHeight = 30*25
+                    this.getLayer()
+                } else if (newVal === 8) {
+                    this.removeLayer()
+                    this.getWidth = 78*40
+                    this.getHeight = 30*40
+                    this.getLayer()
+                } else if (newVal === 9) {
+                    this.removeLayer()
+                    this.getWidth = 78*55
+                    this.getHeight = 30*55
+                    this.getLayer()
+                } else if (newVal === 10) {
                     this.removeLayer()
                     this.getWidth = 78*80
                     this.getHeight = 30*80
                     this.getLayer()
-                } else if (newVal === 8) {
-                    this.removeLayer()
-                    this.getWidth = 78*90
-                    this.getHeight = 30*90
-                    this.getLayer()
-                } else if (newVal === 9) {
+                } else if (newVal === 11) {
                     this.removeLayer()
                     this.getWidth = 78*100
                     this.getHeight = 30*100
                     this.getLayer()
-                } else if (newVal === 10) {
-                    this.removeLayer()
-                    this.getWidth = 78*140
-                    this.getHeight = 30*140
-                    this.getLayer()
-                } else if (newVal === 11) {
-                    this.removeLayer()
-                    this.getWidth = 78*150
-                    this.getHeight = 30*150
-                    this.getLayer()
                 } else if (newVal === 12) {
                     this.removeLayer()
-                    this.getWidth = 78 * 200
-                    this.getHeight = 30 * 200
+                    this.getWidth = 78 * 150
+                    this.getHeight = 30 * 150
                     this.getLayer()
                 } else if (newVal === 13) {
                     this.removeLayer()
@@ -219,12 +219,14 @@
                 // canvas.style.width = 100 + 'px'
                 canvas.width = this.getWidth
                 canvas.height = this.getHeight
-                ctx.font = 'normal small-caps 550 14px serif'
+                // ctx.font = 'normal small-caps 550 14px serif'
                 // ctx.font = 'normal normal 510 17px Arial'
                 // ctx.font = 'normal normal 550 17px Monospace'
                 // 放大倍数
-                let scale = 0.08
-                // let scale = 0.5
+                // ctx.font = 'normal small-caps 550 14px serif'
+                // let scale = 0.08
+                ctx.font = 'normal small-caps 550 12px serif'
+                let scale = 0.5
                 this.scaleX = canvas.width / (this.xMax - this.xMin) * scale
                 this.scaleY = canvas.height / (this.yMax - this.yMin) * scale
                 // 矩形范围
@@ -251,13 +253,13 @@
                     // 参数1
                     for (let i = 0; i < this.parmas.length; i++) {
                         ctx.fillStyle = '#a200ec'
-                        ctx.fillText('' + Object.values(this.parmas[i])[2], (pxArr[i] - this.xMin) * this.scaleX + canvas.width * (1 - scale) / 2 + this.firstParmsX - 25,
-                            (this.yMax - pyArr[i]) * this.scaleY + canvas.height * (1 - scale) / 2 + this.firstParmsY + 10,)
+                        ctx.fillText('' + Object.values(this.parmas[i])[2], (pxArr[i] - this.xMin) * this.scaleX + canvas.width * (1 - scale) / 2 + this.firstParmsX - 17,
+                            (this.yMax - pyArr[i]) * this.scaleY + canvas.height * (1 - scale) / 2 + this.firstParmsY + 7,)
                     }
                     // 参数2
                     for (let i = 0; i < this.parmas.length; i++) {
                         ctx.fillStyle = '#289434'
-                        ctx.fillText('' + Object.values(this.parmas[i])[3], (pxArr[i] - this.xMin) * this.scaleX + canvas.width * (1 - scale) / 2 + this.secondParmsX + 3,
+                        ctx.fillText('' + Object.values(this.parmas[i])[3], (pxArr[i] - this.xMin) * this.scaleX + canvas.width * (1 - scale) / 2 + this.secondParmsX + 8,
                             (this.yMax - pyArr[i]) * this.scaleY + canvas.height * (1 - scale) / 2 + this.secondParmsY + 2)
                     }
                     // 参数3
@@ -275,7 +277,7 @@
                     // 参数5
                     for (let i = 0; i < this.parmas.length; i++) {
                         ctx.fillStyle = '#1b5cf7'
-                        ctx.fillText('' + Object.values(this.parmas[i])[6], (pxArr[i] - this.xMin) * this.scaleX + canvas.width * (1 - scale) / 2 + this.fifthParmsX - 30,
+                        ctx.fillText('' + Object.values(this.parmas[i])[6], (pxArr[i] - this.xMin) * this.scaleX + canvas.width * (1 - scale) / 2 + this.fifthParmsX - 25,
                             (this.yMax - pyArr[i]) * this.scaleY + canvas.height * (1 - scale) / 2 + this.fifthParmsY + 2)
                     }
                 }
