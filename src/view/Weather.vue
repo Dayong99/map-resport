@@ -21,11 +21,11 @@
                 yMax: Number,
                 canvasUrl: '',
                 scaleLevelL: '',
-                getWidth: 775,
-                getHeight: 295,
+                getWidth: 0,
+                getHeight: 0,
                 scaleX: '',
                 scaleY: '',
-                radius: 15,
+                radius: 12,
                 firstParmsX: Number,
                 firstParmsY: Number,
                 secondParmsX: Number,
@@ -46,6 +46,53 @@
         },
         watch: {
             scaleLevelL(newVal) {
+                // console.log(this.scaleLevelL)
+                // if (newVal === 1) {
+                //     this.removeLayer()
+                //     this.getWidth = 0
+                //     this.getHeight = 0
+                //     this.getLayer()
+                // } else if (newVal === 2) {
+                //     this.removeLayer()
+                //     this.getWidth = 0
+                //     this.getHeight = 0
+                //     this.getLayer()
+                // } else if (newVal === 3) {
+                //     this.removeLayer()
+                //     this.getWidth = 775 / 0.55
+                //     this.getHeight = 295 / 0.55
+                //     this.getLayer()
+                // } else if (newVal === 4) {
+                //     this.removeLayer()
+                //     this.getWidth = 775 / 0.32
+                //     this.getHeight = 295 / 0.32
+                //     this.getLayer()
+                // } else if (newVal === 5) {
+                //     this.removeLayer()
+                //     this.getWidth = 775 / 0.17
+                //     this.getHeight = 295 / 0.17
+                //     this.getLayer()
+                // } else if (newVal === 6) {
+                //     this.removeLayer()
+                //     this.getWidth = 775 / 0.1
+                //     this.getHeight = 295 / 0.1
+                //     this.getLayer()
+                // } else if (newVal === 7) {
+                //     this.removeLayer()
+                //     this.getWidth = 775 / 0.065
+                //     this.getHeight = 295 / 0.065
+                //     this.getLayer()
+                // } else if (newVal === 8) {
+                //     this.removeLayer()
+                //     this.getWidth = 775 / 0.0477
+                //     this.getHeight = 295 / 0.0477
+                //     this.getLayer()
+                // } else if (newVal === 9) {
+                //     this.removeLayer()
+                //     this.getWidth = 0
+                //     this.getHeight = 0
+                //     this.getLayer()
+                // }
                 console.log(this.scaleLevelL)
                 if (newVal === 1) {
                     this.removeLayer()
@@ -59,38 +106,58 @@
                     this.getLayer()
                 } else if (newVal === 3) {
                     this.removeLayer()
-                    this.getWidth = 775 / 0.55
-                    this.getHeight = 295 / 0.55
+                    this.getWidth = 7.8 * 31.2
+                    this.getHeight = 3.0 * 31.2
                     this.getLayer()
                 } else if (newVal === 4) {
                     this.removeLayer()
-                    this.getWidth = 775 / 0.32
-                    this.getHeight = 295 / 0.32
+                    this.getWidth = 78*3
+                    this.getHeight = 30*3
                     this.getLayer()
                 } else if (newVal === 5) {
                     this.removeLayer()
-                    this.getWidth = 775 / 0.17
-                    this.getHeight = 295 / 0.17
+                    this.getWidth = 78*4
+                    this.getHeight = 30*4
                     this.getLayer()
                 } else if (newVal === 6) {
                     this.removeLayer()
-                    this.getWidth = 775 / 0.1
-                    this.getHeight = 295 / 0.1
+                    this.getWidth = 78*70
+                    this.getHeight = 30*70
                     this.getLayer()
                 } else if (newVal === 7) {
                     this.removeLayer()
-                    this.getWidth = 775 / 0.065
-                    this.getHeight = 295 / 0.065
+                    this.getWidth = 78*80
+                    this.getHeight = 30*80
                     this.getLayer()
                 } else if (newVal === 8) {
                     this.removeLayer()
-                    this.getWidth = 775 / 0.0477
-                    this.getHeight = 295 / 0.0477
+                    this.getWidth = 78*90
+                    this.getHeight = 30*90
                     this.getLayer()
                 } else if (newVal === 9) {
                     this.removeLayer()
-                    this.getWidth = 0
-                    this.getHeight = 0
+                    this.getWidth = 78*100
+                    this.getHeight = 30*100
+                    this.getLayer()
+                } else if (newVal === 10) {
+                    this.removeLayer()
+                    this.getWidth = 78*140
+                    this.getHeight = 30*140
+                    this.getLayer()
+                } else if (newVal === 11) {
+                    this.removeLayer()
+                    this.getWidth = 78*150
+                    this.getHeight = 30*150
+                    this.getLayer()
+                } else if (newVal === 12) {
+                    this.removeLayer()
+                    this.getWidth = 78 * 200
+                    this.getHeight = 30 * 200
+                    this.getLayer()
+                } else if (newVal === 13) {
+                    this.removeLayer()
+                    this.getWidth = 78*210
+                    this.getHeight = 30*210
                     this.getLayer()
                 }
             }
@@ -148,14 +215,16 @@
                 this.yMin = Math.min.apply(Math, pyArr)
                 const canvas = document.createElement('canvas')
                 const ctx = canvas.getContext('2d')
-                canvas.style.width = 775 + 'px'
-                canvas.style.width = 295 + 'px'
+                // canvas.style.width = 300 + 'px'
+                // canvas.style.width = 100 + 'px'
                 canvas.width = this.getWidth
                 canvas.height = this.getHeight
-                ctx.font = 'normal normal 550 16px serif'
+                ctx.font = 'normal small-caps 550 14px serif'
+                // ctx.font = 'normal normal 510 17px Arial'
                 // ctx.font = 'normal normal 550 17px Monospace'
                 // 放大倍数
                 let scale = 0.08
+                // let scale = 0.5
                 this.scaleX = canvas.width / (this.xMax - this.xMin) * scale
                 this.scaleY = canvas.height / (this.yMax - this.yMin) * scale
                 // 矩形范围
@@ -182,7 +251,7 @@
                     // 参数1
                     for (let i = 0; i < this.parmas.length; i++) {
                         ctx.fillStyle = '#a200ec'
-                        ctx.fillText('' + Object.values(this.parmas[i])[2], (pxArr[i] - this.xMin) * this.scaleX + canvas.width * (1 - scale) / 2 + this.firstParmsX - 30,
+                        ctx.fillText('' + Object.values(this.parmas[i])[2], (pxArr[i] - this.xMin) * this.scaleX + canvas.width * (1 - scale) / 2 + this.firstParmsX - 25,
                             (this.yMax - pyArr[i]) * this.scaleY + canvas.height * (1 - scale) / 2 + this.firstParmsY + 10,)
                     }
                     // 参数2
@@ -206,7 +275,7 @@
                     // 参数5
                     for (let i = 0; i < this.parmas.length; i++) {
                         ctx.fillStyle = '#1b5cf7'
-                        ctx.fillText('' + Object.values(this.parmas[i])[6], (pxArr[i] - this.xMin) * this.scaleX + canvas.width * (1 - scale) / 2 + this.fifthParmsX - 35,
+                        ctx.fillText('' + Object.values(this.parmas[i])[6], (pxArr[i] - this.xMin) * this.scaleX + canvas.width * (1 - scale) / 2 + this.fifthParmsX - 30,
                             (this.yMax - pyArr[i]) * this.scaleY + canvas.height * (1 - scale) / 2 + this.fifthParmsY + 2)
                     }
                 }
@@ -250,37 +319,20 @@
                 let east = this.getCanvas().east
                 let north = this.getCanvas().north
 
-                // // 解决Cesium画线不光滑，模糊不清，锯齿状:1.改变地图灰度系数
+                // 解决cesium锯齿和页面模糊问题:1.改变地图灰度系数
                 // let layer0 = window.earth.scene.imageryLayers.get(0);
                 // layer0.gamma = 0.8;
 
-                // 解决Cesium画线不光滑，模糊不清，锯齿状:2.关闭抗锯齿
+                // 解决cesium锯齿和页面模糊问题:2.关闭抗锯齿
                 window.earth.scene.fxaa = false
                 window.earth.scene.postProcessStages.fxaa.enabled = false;
 
-                // 解决Cesium画线不光滑，模糊不清，锯齿状:3.自动调整分辨率
-                // let supportsImageRenderingPixelated = window.earth.cesiumWidget._supportsImageRenderingPixelated;
-                // if (supportsImageRenderingPixelated) {
-                //     let vtxf_dpr = window.devicePixelRatio;
-                //     while (vtxf_dpr >= 2.0) {
-                //         vtxf_dpr /= 2.0;
-                //     }
-                //     window.earth.resolutionScale = vtxf_dpr;
-                // }
-
-                // 解决cesium锯齿和页面模糊问题: 使viewer.resolutionScale的值等于window.devicePixelRatio值
+                // 解决cesium锯齿和页面模糊问题: 3.使viewer.resolutionScale的值等于window.devicePixelRatio值
                 if(Cesium.FeatureDetection.supportsImageRenderingPixelated()){//判断是否支持图像渲染像素化处理
                     window.earth.resolutionScale = window.devicePixelRatio;
                 }
 
-
                 let layers = window.earth.scene.imageryLayers
-                // let blackMarble = layers.addImageryProvider(
-                //     new Cesium.IonImageryProvider({assetId: 3812})
-                // )
-                // blackMarble.alpha = 0
-                // blackMarble.brightness = 0
-
                 const layerLoad = layers.addImageryProvider(
                     new Cesium.SingleTileImageryProvider({
                         url: this.getCanvas().canvas.toDataURL(),
