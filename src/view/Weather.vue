@@ -314,14 +314,18 @@
             getLayer() {
                 // 从getCanvas()中获取canvas的url
                 // 从getCanvas()中获取canvas的四角
-                let west = this.getCanvas().west
-                let south = this.getCanvas().south
-                let east = this.getCanvas().east
-                let north = this.getCanvas().north
+                let obj = {
+
+                }
+                obj = this.getCanvas()
+                // let west = this.getCanvas().west
+                // let south = this.getCanvas().south
+                // let east = this.getCanvas().east
+                // let north = this.getCanvas().north
 
                 // 解决cesium锯齿和页面模糊问题:1.改变地图灰度系数
-                // let layer0 = window.earth.scene.imageryLayers.get(0);
-                // layer0.gamma = 0.8;
+                let layer0 = window.earth.scene.imageryLayers.get(0);
+                layer0.gamma = 0.8;
 
                 // 解决cesium锯齿和页面模糊问题:2.关闭抗锯齿
                 window.earth.scene.fxaa = false
@@ -335,8 +339,8 @@
                 let layers = window.earth.scene.imageryLayers
                 const layerLoad = layers.addImageryProvider(
                     new Cesium.SingleTileImageryProvider({
-                        url: this.getCanvas().canvas.toDataURL(),
-                        rectangle: Cesium.Rectangle.fromDegrees(west, south, east, north),
+                        url: obj.canvas.toDataURL(),
+                        rectangle: Cesium.Rectangle.fromDegrees(obj.west, obj.south, obj.east, obj.north),
                     }),
                 )
                 // window.earth.imageryLayers.remove(layerLoad)
