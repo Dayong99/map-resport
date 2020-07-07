@@ -106,23 +106,23 @@
                     this.getLayer()
                 } else if (newVal === 3) {
                     this.removeLayer()
-                    this.getWidth = 7.8 * 30
-                    this.getHeight = 3.0 * 30
+                    this.getWidth = 78 * 2.5
+                    this.getHeight = 30 * 2.5
                     this.getLayer()
                 } else if (newVal === 4) {
                     this.removeLayer()
-                    this.getWidth = 78*5
-                    this.getHeight = 30*5
+                    this.getWidth = 78*3.5
+                    this.getHeight = 30*3.5
                     this.getLayer()
                 } else if (newVal === 5) {
                     this.removeLayer()
-                    this.getWidth = 78*7
-                    this.getHeight = 30*7
+                    this.getWidth = 78*6.5
+                    this.getHeight = 30*6.5
                     this.getLayer()
                 } else if (newVal === 6) {
                     this.removeLayer()
-                    this.getWidth = 78*11
-                    this.getHeight = 30*11
+                    this.getWidth = 78*13
+                    this.getHeight = 30*13
                     this.getLayer()
                 } else if (newVal === 7) {
                     this.removeLayer()
@@ -131,28 +131,28 @@
                     this.getLayer()
                 } else if (newVal === 8) {
                     this.removeLayer()
-                    this.getWidth = 78*40
-                    this.getHeight = 30*40
+                    this.getWidth = 78*50
+                    this.getHeight = 30*50
                     this.getLayer()
                 } else if (newVal === 9) {
                     this.removeLayer()
-                    this.getWidth = 78*55
-                    this.getHeight = 30*55
+                    this.getWidth = 78*120
+                    this.getHeight = 30*120
                     this.getLayer()
                 } else if (newVal === 10) {
                     this.removeLayer()
-                    this.getWidth = 78*80
-                    this.getHeight = 30*80
+                    this.getWidth = 78*209
+                    this.getHeight = 30*209
                     this.getLayer()
                 } else if (newVal === 11) {
                     this.removeLayer()
-                    this.getWidth = 78*100
-                    this.getHeight = 30*100
+                    this.getWidth = 78*209
+                    this.getHeight = 30*209
                     this.getLayer()
                 } else if (newVal === 12) {
                     this.removeLayer()
-                    this.getWidth = 78 * 150
-                    this.getHeight = 30 * 150
+                    this.getWidth = 78 * 209
+                    this.getHeight = 30 * 209
                     this.getLayer()
                 } else if (newVal === 13) {
                     this.removeLayer()
@@ -215,8 +215,6 @@
                 this.yMin = Math.min.apply(Math, pyArr)
                 const canvas = document.createElement('canvas')
                 const ctx = canvas.getContext('2d')
-                // canvas.style.width = 300 + 'px'
-                // canvas.style.width = 100 + 'px'
                 canvas.width = this.getWidth
                 canvas.height = this.getHeight
                 // ctx.font = 'normal small-caps 550 14px serif'
