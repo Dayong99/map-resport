@@ -1,0 +1,17 @@
+{
+  "name": "map-resport",
+  "install": "npm ci",
+  "ports": [
+    {
+      "name": "dev-server",
+      "port": 8080
+    }
+  ],
+  "terminals": [
+    {
+      "name": "dev-server",
+      "command": "NODE_OPTIONS=--openssl-legacy-provider npm run serve",
+      "description": "Vue CLI dev server on http://localhost:8080. NODE_OPTIONS enables the legacy OpenSSL provider that webpack 4 (Vue CLI 4) requires on Node 17+. Production builds (npm run build) need the same flag: NODE_OPTIONS=--openssl-legacy-provider npm run build."
+    }
+  ]
+}
